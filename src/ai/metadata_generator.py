@@ -8,6 +8,7 @@ if __name__ != '__main__':
 
 from ai.llm_client import LLMClient, LLMProvider
 from utils.logger import setup_logger
+from utils.config import Config
 
 logger = setup_logger(__name__)
 
@@ -15,7 +16,15 @@ logger = setup_logger(__name__)
 class MetadataGenerator:
     
     def __init__(self, llm_client: Optional[LLMClient] = None):
-        self.llm_client = llm_client or LLMClient()
+        if llm_client:
+            self.llm_client = llm_client
+        else:
+            # Initialize with Anthropic provider from config
+            config = Config()
+            provider_str = config.get('llm.provider', 'anthropic')
+            provider = LLMProvider.ANTHROPIC if provider_str == 'anthropic' else LLMProvider.OPENAI
+            self.llm_client = LLMClient(provider=provider)
+        
         self.editor_asset_lib = unreal.EditorAssetLibrary
     
     def generate_asset_tags(self, asset) -> List[str]:

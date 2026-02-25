@@ -170,7 +170,109 @@ else:
 
 ---
 
-## 6. Check Configuration
+## 6. QA Sanity Checker
+
+**Option A: Check Selected Assets**
+
+```python
+import sys
+# Replace with your actual project path
+sys.path.append('/path/to/your/ue5_semantic_automation/src')
+
+from qa.sanity_checker import SanityChecker
+import unreal
+
+selected = unreal.EditorUtilityLibrary.get_selected_assets()
+
+if len(selected) > 0:
+    checker = SanityChecker()
+   8print(f"Checking {len(selected)} asset(s)...\n")
+    
+    all_issues = []
+    for asset in selected:
+        print(f"Checking: {asset.get_name()}")
+        issues = checker._check_single_asset(asset)
+        
+        if issues:
+            all_issues.extend(issues)
+            for issue in issues:
+                print(f"  [{issue['severity'].upper()}] {issue['message']}")
+        else:
+            print(f"  ✓ No issues found")
+    
+    print(f"\nTotal issues: {len(all_issues)}")
+else:
+    print("⚠ No assets selected")
+```
+
+**Option B: Full Project Scan**
+
+```python
+import sys
+sys.path.append('/path/to/your/ue5_semantic_automation/src')
+
+from qa.sanity_checker import SanityChecker
+
+checker = SanityChecker()
+print("Scanning all assets in /Game/Content...\n")
+
+results = checker.run_full_sanity_check("/Game/Content")
+
+print(f"Total Assets: {results['total_assets']}")
+print(f"Issues Found: {results['issues_found']}")
+print(f"  Critical: {results['critical_issues']}")
+print(f"  Warnings: {results['warnings']}")
+
+if results['issues_by_type']:
+    print("\nIssues by Type:")
+    for issue_type, count in results['issues_by_type'].items():
+        print(f"  - {issue_type}: {count}")
+```
+
+---
+
+## 7. Texture Validator
+
+**Select a Texture2D asset in Content Browser first**, then run:
+
+```python
+import sys
+sys.path.append('/path/to/your/ue5_semantic_automation/src')
+
+from qa.texture_validator import TextureValidator
+import unreal
+
+validator = TextureValidator()
+selected = unreal.EditorUtilityLibrary.get_selected_assets()
+
+if len(selected) > 0:
+    for asset in selected:
+        if asset.get_class().get_name() == "Texture2D":
+            print(f"Validating: {asset.get_name()}")
+            
+            result = validator.validate_texture(asset)
+            
+            print(f"  Size: {result['info']['width']}x{result['info']['height']}")
+            print(f"  Valid: {result['is_valid']}")
+            
+            if result['issues']:
+                print(f"  Issues: {len(result['issues'])}")
+                for issue in result['issues']:
+                    print(f"    - {issue}")
+            
+            if result['warnings']:
+                print(f"  Warnings: {len(result['warnings'])}")
+                for warning in result['warnings']:
+                    print(f"    - {warning}")
+        else:
+            print(f"⚠ {asset.get_name()} is not a Texture2D")
+else:
+    print("⚠ No assets selected")
+```
+
+---
+
+## 8. Check Configuration
 
 ```python
 from utils.config import Config
@@ -182,11 +284,10 @@ print(f"  Provider: {config.get('llm.provider')}")
 print(f"  Model: {config.get('llm.model')}")
 print(f"  Temperature: {config.get('llm.temperature')}")
 print(f"  Max Tokens: {config.get('llm.max_tokens')}")
-```
 
 ---
 
-## 7. List All Assets in a Folder
+## 11. List All Assets in a Folder
 
 ```python
 import unreal
