@@ -1,9 +1,6 @@
 """
-Quality Assurance and validation modules
+Quality assurance and validation modules
 """
 
-from .sanity_checker import SanityChecker
-from .texture_validator import TextureValidator
-from .material_validator import MaterialValidator
-
+# Empty __init__.py - import modules directly to avoid relative import issues in UE5
 __all__ = ['SanityChecker', 'TextureValidator', 'MaterialValidator']

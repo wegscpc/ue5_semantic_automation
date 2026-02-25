@@ -1,9 +1,6 @@
 """
-Utility functions and helpers
+Utility modules for configuration, logging, and Unreal helpers
 """
 
-from .config import Config
-from .logger import setup_logger
-from .unreal_helpers import UnrealHelpers
-
-__all__ = ['Config', 'setup_logger', 'UnrealHelpers']
+# Empty __init__.py - import modules directly to avoid relative import issues in UE5
+__all__ = ['Config', 'setup_logger', 'get_logger', 'UnrealHelpers']

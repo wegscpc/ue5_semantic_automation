@@ -83,7 +83,7 @@ class LLMClient:
             client = anthropic.Anthropic(api_key=self.api_key)
             
             message = client.messages.create(
-                model=self.model if self.model.startswith("claude") else "claude-3-5-sonnet-20241022",
+                model=self.model if self.model.startswith("claude") else "claude-sonnet-4-6",
                 max_tokens=max_tokens,
                 temperature=temperature,
                 system="You are an expert Unreal Engine 5 technical artist assistant.",
@@ -138,31 +138,35 @@ class LLMClient:
         return self.generate_completion(prompt, max_tokens=50, temperature=0.3)
     
     def generate_material_parameters(self, description: str) -> Optional[Dict[str, any]]:
-        prompt = f"""
-        Generate material parameters for Unreal Engine 5 based on this description:
-        "{description}"
+        prompt = f"""Generate PBR material parameters for: "{description}"
+
+Return ONLY a valid JSON object with this exact structure (no markdown, no explanation):
+{{
+    "base_color": [0.8, 0.1, 0.1],
+    "metallic": 0.9,
+    "roughness": 0.3,
+    "specular": 0.5
+}}
+
+Values must be floats between 0 and 1. Return only the JSON."""
         
-        Return a JSON object with the following structure:
-        {{
-            "base_color": [R, G, B] (0-1 range),
-            "metallic": float (0-1),
-            "roughness": float (0-1),
-            "specular": float (0-1),
-            "emissive": [R, G, B] (0-1 range),
-            "normal_strength": float (0-1),
-            "suggested_textures": ["texture_type1", "texture_type2"]
-        }}
-        
-        Return ONLY valid JSON, no additional text.
-        """
-        
-        response = self.generate_completion(prompt, max_tokens=300, temperature=0.5)
+        response = self.generate_completion(prompt, max_tokens=200, temperature=0.3)
         
         if response:
             try:
-                return json.loads(response)
-            except json.JSONDecodeError:
-                logger.error("Failed to parse material parameters JSON")
+                # Clean up response - remove markdown code blocks if present
+                cleaned = response.strip()
+                if cleaned.startswith('```'):
+                    # Remove markdown code blocks
+                    cleaned = cleaned.split('```')[1]
+                    if cleaned.startswith('json'):
+                        cleaned = cleaned[4:]
+                    cleaned = cleaned.strip()
+                
+                return json.loads(cleaned)
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse material parameters JSON: {e}")
+                logger.error(f"Response was: {response}")
                 return None
         
         return None

@@ -4,21 +4,20 @@ This script can be run directly from Unreal Engine's Python console or as a scri
 """
 
 import unreal
+from typing import List, Optional
+import sys
+import os
+
+if __name__ != '__main__':
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from core.asset_organizer import AssetOrganizer
-from core.asset_classifier import AssetClassifier
-from ai.llm_client import LLMClient, LLMProvider
-from ai.metadata_generator import MetadataGenerator
 from ai.asset_naming import AIAssetNaming
 from qa.sanity_checker import SanityChecker
-from qa.texture_validator import TextureValidator
-from qa.material_validator import MaterialValidator
 from optimization.texture_optimizer import TextureOptimizer
-from optimization.lod_generator import LODGenerator
 from materials.material_generator import MaterialGenerator
-from materials.master_material_manager import MasterMaterialManager
 from utils.config import Config
 from utils.logger import setup_logger
-from utils.unreal_helpers import UnrealHelpers
 
 logger = setup_logger(__name__)
 
@@ -28,21 +27,10 @@ class UE5AutomationTool:
     def __init__(self):
         self.config = Config()
         self.organizer = AssetOrganizer()
-        self.classifier = AssetClassifier()
-        self.llm_client = LLMClient(
-            provider=LLMProvider.OPENAI,
-            api_key=self.config.get("llm.api_key"),
-            model=self.config.get("llm.model", "gpt-4")
-        )
-        self.metadata_gen = MetadataGenerator(self.llm_client)
-        self.ai_naming = AIAssetNaming(self.llm_client)
+        self.ai_naming = AIAssetNaming()
         self.sanity_checker = SanityChecker()
-        self.texture_validator = TextureValidator()
-        self.material_validator = MaterialValidator()
         self.texture_optimizer = TextureOptimizer()
-        self.lod_generator = LODGenerator()
-        self.material_generator = MaterialGenerator(self.llm_client)
-        self.master_material_manager = MasterMaterialManager()
+        self.material_generator = MaterialGenerator()
         
         logger.info("UE5 Automation Tool initialized")
     

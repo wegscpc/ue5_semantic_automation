@@ -1,7 +1,13 @@
 import unreal
 from typing import Optional, Dict, List
-from .llm_client import LLMClient
-from ..utils.logger import setup_logger
+import sys
+import os
+
+if __name__ != '__main__':
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from ai.llm_client import LLMClient
+from utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 

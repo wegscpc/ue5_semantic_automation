@@ -1,7 +1,16 @@
 import unreal
-from typing import Dict, List, Optional
-from ..ai.llm_client import LLMClient
-from ..utils.logger import setup_logger
+from typing import Dict, Optional, List
+import json
+import sys
+import os
+
+if __name__ != '__main__':
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from ai.llm_client import LLMClient, LLMProvider
+from utils.logger import setup_logger
+from utils.config import Config
+from materials.master_material_manager import MasterMaterialManager
 
 logger = setup_logger(__name__)
 
@@ -9,7 +18,15 @@ logger = setup_logger(__name__)
 class MaterialGenerator:
     
     def __init__(self, llm_client: Optional[LLMClient] = None):
-        self.llm_client = llm_client or LLMClient()
+        if llm_client:
+            self.llm_client = llm_client
+        else:
+            # Initialize with Anthropic provider from config
+            config = Config()
+            provider_str = config.get('llm.provider', 'anthropic')
+            provider = LLMProvider.ANTHROPIC if provider_str == 'anthropic' else LLMProvider.OPENAI
+            self.llm_client = LLMClient(provider=provider)
+        
         self.editor_asset_lib = unreal.EditorAssetLibrary
         self.material_editing_lib = unreal.MaterialEditingLibrary
     
@@ -115,6 +132,9 @@ class MaterialGenerator:
             if material:
                 logger.info(f"Created basic material: {material_name}")
                 
+                # Apply parameters using material expression nodes
+                self._build_material_graph(material, params)
+                
                 self.editor_asset_lib.save_asset(material.get_path_name())
                 
                 return material.get_path_name()
@@ -124,6 +144,56 @@ class MaterialGenerator:
         except Exception as e:
             logger.error(f"Error creating basic material: {str(e)}")
             return None
+    
+    def _build_material_graph(self, material, params: Dict[str, any]):
+        """Build material expression graph with AI-generated parameters"""
+        try:
+            # Base Color
+            if "base_color" in params and isinstance(params["base_color"], list):
+                bc = params["base_color"]
+                base_color_node = unreal.MaterialEditingLibrary.create_material_expression(
+                    material, unreal.MaterialExpressionConstant3Vector, -400, -200
+                )
+                base_color_node.constant = unreal.LinearColor(bc[0], bc[1], bc[2])
+                unreal.MaterialEditingLibrary.connect_material_property(
+                    base_color_node, "", unreal.MaterialProperty.MP_BASE_COLOR
+                )
+            
+            # Metallic
+            if "metallic" in params:
+                metallic_node = unreal.MaterialEditingLibrary.create_material_expression(
+                    material, unreal.MaterialExpressionConstant, -400, 0
+                )
+                metallic_node.r = float(params["metallic"])
+                unreal.MaterialEditingLibrary.connect_material_property(
+                    metallic_node, "", unreal.MaterialProperty.MP_METALLIC
+                )
+            
+            # Roughness
+            if "roughness" in params:
+                roughness_node = unreal.MaterialEditingLibrary.create_material_expression(
+                    material, unreal.MaterialExpressionConstant, -400, 100
+                )
+                roughness_node.r = float(params["roughness"])
+                unreal.MaterialEditingLibrary.connect_material_property(
+                    roughness_node, "", unreal.MaterialProperty.MP_ROUGHNESS
+                )
+            
+            # Specular
+            if "specular" in params:
+                specular_node = unreal.MaterialEditingLibrary.create_material_expression(
+                    material, unreal.MaterialExpressionConstant, -400, 200
+                )
+                specular_node.r = float(params["specular"])
+                unreal.MaterialEditingLibrary.connect_material_property(
+                    specular_node, "", unreal.MaterialProperty.MP_SPECULAR
+                )
+            
+            logger.info(f"Built material graph with AI parameters")
+            
+        except Exception as e:
+            logger.error(f"Error building material graph: {str(e)}")
+            logger.error(f"Parameters were: {params}")
     
     def _apply_parameters_to_instance(self, material_instance, params: Dict[str, any]):
         try:

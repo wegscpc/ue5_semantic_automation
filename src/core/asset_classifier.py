@@ -1,6 +1,12 @@
 import unreal
-from typing import Dict, List, Optional
-from ..utils.logger import setup_logger
+from typing import Dict, Optional, List
+import sys
+import os
+
+if __name__ != '__main__':
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 

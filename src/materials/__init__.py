@@ -2,7 +2,5 @@
 Material generation and management modules
 """
 
-from .material_generator import MaterialGenerator
-from .master_material_manager import MasterMaterialManager
-
+# Empty __init__.py - import modules directly to avoid relative import issues in UE5
 __all__ = ['MaterialGenerator', 'MasterMaterialManager']

@@ -1,8 +1,6 @@
 """
-Optimization modules for textures and assets
+Optimization modules for textures and LODs
 """
 
-from .texture_optimizer import TextureOptimizer
-from .lod_generator import LODGenerator
-
+# Empty __init__.py - import modules directly to avoid relative import issues in UE5
 __all__ = ['TextureOptimizer', 'LODGenerator']

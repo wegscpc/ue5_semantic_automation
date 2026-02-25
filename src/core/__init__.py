@@ -1,8 +1,6 @@
 """
-Core modules for asset organization and management
+Core modules for asset organization and classification
 """
 
-from .asset_organizer import AssetOrganizer
-from .asset_classifier import AssetClassifier
-
+# Empty __init__.py - import modules directly to avoid relative import issues in UE5
 __all__ = ['AssetOrganizer', 'AssetClassifier']

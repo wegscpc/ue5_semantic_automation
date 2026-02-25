@@ -1,6 +1,14 @@
 import unreal
 from typing import List, Dict, Optional
-from ..utils.logger import setup_logger
+import sys
+import os
+
+# Add parent directory to path for imports
+if __name__ != '__main__':
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from utils.logger import setup_logger
+from core.asset_classifier import AssetClassifier
 
 logger = setup_logger(__name__)
 

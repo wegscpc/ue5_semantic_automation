@@ -35,7 +35,8 @@ Open the **Output Log** (Window → Developer Tools → Output Log), select **Py
 
 ```python
 import sys
-sys.path.append('d:/Windsurf_AI/ue5_semantic_automation/src')  # Adjust path
+# Replace with your actual project path
+sys.path.append('/path/to/your/ue5_semantic_automation/src')  # Adjust path
 
 from main import UE5AutomationTool
 
