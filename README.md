@@ -278,8 +278,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Specializing in bridging the gap between technical quality and artistic vision through intelligent automation.
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Walter Gomis](https://linkedin.com/in/yourprofile)
+- GitHub: [@wegscpc](https://github.com/wegscpc)
+- LinkedIn: [Walter Gomis](https://linkedin.com/in/walter-gomis-schlick-13719737)
 
 ## 🙏 Acknowledgments
 
