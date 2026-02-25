@@ -1,0 +1,39 @@
+{
+  "llm": {
+    "provider": "anthropic",
+    "model": "claude-3-5-sonnet-20241022",
+    "api_key": "",
+    "base_url": "https://api.anthropic.com/v1",
+    "temperature": 0.7,
+    "max_tokens": 4096
+  },
+  "organization": {
+    "base_path": "/Game/Content",
+    "auto_organize": true,
+    "create_folders": true,
+    "backup_before_rename": false
+  },
+  "optimization": {
+    "default_viewing_distance": "medium",
+    "max_texture_resolution": 2048,
+    "enable_texture_streaming": true,
+    "auto_generate_lods": false,
+    "num_lods": 3
+  },
+  "qa": {
+    "run_on_import": false,
+    "enforce_power_of_two": true,
+    "enforce_naming_convention": true,
+    "max_texture_size_warning": 4096
+  },
+  "materials": {
+    "default_master_material": "/Game/Materials/Masters/M_StandardPBR",
+    "auto_assign_textures": false,
+    "material_output_path": "/Game/Materials/Generated"
+  },
+  "logging": {
+    "level": "INFO",
+    "log_to_file": true,
+    "log_file_path": "ue5_automation.log"
+  }
+}

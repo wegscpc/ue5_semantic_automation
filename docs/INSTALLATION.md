@@ -57,18 +57,43 @@ pip install -r requirements.txt
 
 ### 4. Configure the Tool
 
-1. Navigate to `config/settings.json`
-2. Update the configuration with your preferences:
+**Option A: Environment Variable (Recommended)**
+
+Run the setup script to securely configure your Claude API key:
+
+```powershell
+# Windows
+.\setup_env.ps1
+```
+
+```bash
+# Linux/macOS
+./setup_env.sh
+```
+
+**Option B: Manual Configuration**
+
+Edit `config/settings.json`:
 
 ```json
 {
   "llm": {
-    "provider": "openai",
-    "model": "gpt-4",
-    "api_key": "your-openai-api-key-here"
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-6",
+    "api_key": "",
+    ...
   }
 }
 ```
+
+Leave `api_key` empty to use the environment variable `OPENAI_API_KEY`.
+
+**Available Claude Models:**
+- `claude-sonnet-4-6` - Latest Sonnet (Recommended)
+- `claude-opus-4-6` - Most powerful
+- `claude-haiku-4-5-20251001` - Fastest/cheapest
+
+See `docs/ENV_SETUP.md` for detailed API key setup instructions.
 
 **Security Note**: Never commit your API key to version control. Consider using environment variables:
 

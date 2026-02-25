@@ -1,10 +1,15 @@
 import os
 import json
+import logging
 from typing import Optional, Dict, List
 from enum import Enum
-from ..utils.logger import setup_logger
 
-logger = setup_logger(__name__)
+try:
+    from ..utils.logger import setup_logger
+    logger = setup_logger(__name__)
+except ImportError:
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
 
 
 class LLMProvider(Enum):
@@ -17,17 +22,27 @@ class LLMClient:
     
     def __init__(self, provider: LLMProvider = LLMProvider.OPENAI, api_key: Optional[str] = None, model: str = "gpt-4"):
         self.provider = provider
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
+        
+        # Try multiple environment variables for API key
+        if api_key:
+            self.api_key = api_key
+        elif provider == LLMProvider.ANTHROPIC:
+            self.api_key = os.getenv("ANTHROPIC_API_KEY") or os.getenv("OPENAI_API_KEY")
+        else:
+            self.api_key = os.getenv("OPENAI_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
+        
         self.model = model
         self.base_url = os.getenv("LLM_BASE_URL", "https://api.openai.com/v1")
         
-        if self.provider == LLMProvider.OPENAI and not self.api_key:
-            logger.warning("OpenAI API key not found. Set OPENAI_API_KEY environment variable.")
+        if not self.api_key:
+            logger.warning(f"{provider.value} API key not found. Set OPENAI_API_KEY or ANTHROPIC_API_KEY environment variable.")
     
     def generate_completion(self, prompt: str, max_tokens: int = 500, temperature: float = 0.7) -> Optional[str]:
         try:
             if self.provider == LLMProvider.OPENAI:
                 return self._openai_completion(prompt, max_tokens, temperature)
+            elif self.provider == LLMProvider.ANTHROPIC:
+                return self._anthropic_completion(prompt, max_tokens, temperature)
             elif self.provider == LLMProvider.LOCAL:
                 return self._local_completion(prompt, max_tokens, temperature)
             else:
@@ -59,6 +74,30 @@ class LLMClient:
             return None
         except Exception as e:
             logger.error(f"OpenAI API error: {str(e)}")
+            return None
+    
+    def _anthropic_completion(self, prompt: str, max_tokens: int, temperature: float) -> Optional[str]:
+        try:
+            import anthropic
+            
+            client = anthropic.Anthropic(api_key=self.api_key)
+            
+            message = client.messages.create(
+                model=self.model if self.model.startswith("claude") else "claude-3-5-sonnet-20241022",
+                max_tokens=max_tokens,
+                temperature=temperature,
+                system="You are an expert Unreal Engine 5 technical artist assistant.",
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            
+            return message.content[0].text.strip()
+        except ImportError:
+            logger.error("Anthropic library not installed. Install with: pip install anthropic")
+            return None
+        except Exception as e:
+            logger.error(f"Anthropic API error: {str(e)}")
             return None
     
     def _local_completion(self, prompt: str, max_tokens: int, temperature: float) -> Optional[str]:

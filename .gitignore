@@ -36,8 +36,9 @@ env/
 logs/
 *.log
 
-# Config with secrets
+# Config with secrets (keep settings.example.json in git)
 config/settings.json
+!config/settings.example.json
 
 # OS
 .DS_Store

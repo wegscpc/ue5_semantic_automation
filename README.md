@@ -99,14 +99,26 @@ ue5_semantic_automation/
    pip install -r requirements.txt
    ```
 
-3. **Configure the tool**:
-   - Copy `config/settings.json.example` to `config/settings.json`
-   - Add your OpenAI API key (if using AI features):
-     ```json
-     {
-       "llm": {
-         "api_key": "your-api-key-here"
-       }
+3. **Configure API Key (Optional)**
+   
+   **Recommended: Use Environment Variable (Secure)**
+   ```powershell
+   # Windows (PowerShell)
+   .\setup_env.ps1
+   
+   # Or manually set:
+   [System.Environment]::SetEnvironmentVariable("OPENAI_API_KEY", "your-claude-api-key", "User")
+   ```
+   
+   ```bash
+   # Linux/macOS
+   ./setup_env.sh
+   
+   # Or add to ~/.bashrc or ~/.zshrc:
+   export OPENAI_API_KEY="your-claude-api-key"
+   ```
+   
+   The tool is configured to use **Claude (Anthropic)** by default. See `docs/ENV_SETUP.md` for detailed setup instructions.
      }
      ```
 
@@ -219,8 +231,12 @@ tool.material_generator.batch_generate_materials(prompts)
 
 - **Engine**: Unreal Engine 5.x
 - **Language**: Python 3.7+ (Unreal API)
-- **AI Integration**: OpenAI API / Local LLMs
-- **Development**: Windsurf/Cascade for AI-assisted development
+- **AI/LLM Integration
+- **Claude (Anthropic)** - Primary AI provider with latest models
+- **OpenAI GPT-4** - Alternative provider support
+- Local LLM support for offline use
+- Configurable API endpoints
+- Fallback to rule-based systems when AI is unavailable
 - **Version Control**: Git & GitHub
 
 ## 📊 Configuration

@@ -12,8 +12,14 @@ git clone https://github.com/yourusername/ue5_semantic_automation.git
 # 2. Install dependencies
 pip install -r ue5_semantic_automation/requirements.txt
 
-# 3. Configure (optional - for AI features)
-# Edit config/settings.json and add your OpenAI API key
+# 3. Configure API Key (optional - for AI features)
+# Windows PowerShell:
+.\ue5_semantic_automation\setup_env.ps1
+
+# Linux/macOS:
+./ue5_semantic_automation/setup_env.sh
+
+# This will set up your Claude (Anthropic) API key securely
 ```
 
 ## Enable in Unreal Engine
