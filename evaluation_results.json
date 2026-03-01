@@ -1,0 +1,333 @@
+[
+  {
+    "feature": "asset_naming",
+    "input": {
+      "original_name": "cube_01",
+      "asset_type": "StaticMesh"
+    },
+    "output": {
+      "suggested_name": "SM_Cube_01"
+    },
+    "expected": null,
+    "metrics": {
+      "naming_convention": 1.0,
+      "format_validity": 1.0,
+      "relevance": 0.85
+    },
+    "passed": true,
+    "feedback": "\u2713 naming_convention: 1.00 | \u2713 format_validity: 1.00 | \u2713 relevance: 0.85",
+    "timestamp": "2026-03-01T11:47:48.170848"
+  },
+  {
+    "feature": "asset_naming",
+    "input": {
+      "original_name": "metal_texture",
+      "asset_type": "Texture2D"
+    },
+    "output": {
+      "suggested_name": "T_Metal"
+    },
+    "expected": null,
+    "metrics": {
+      "naming_convention": 1.0,
+      "format_validity": 1.0,
+      "relevance": 0.55
+    },
+    "passed": false,
+    "feedback": "\u2713 naming_convention: 1.00 | \u2713 format_validity: 1.00 | \u26a0 relevance: 0.55 (below threshold)",
+    "timestamp": "2026-03-01T11:47:49.674564"
+  },
+  {
+    "feature": "asset_naming",
+    "input": {
+      "original_name": "shiny_material",
+      "asset_type": "Material"
+    },
+    "output": {
+      "suggested_name": "M_Shiny"
+    },
+    "expected": null,
+    "metrics": {
+      "naming_convention": 1.0,
+      "format_validity": 1.0,
+      "relevance": 0.55
+    },
+    "passed": false,
+    "feedback": "\u2713 naming_convention: 1.00 | \u2713 format_validity: 1.00 | \u26a0 relevance: 0.55 (below threshold)",
+    "timestamp": "2026-03-01T11:47:51.309441"
+  },
+  {
+    "feature": "asset_naming",
+    "input": {
+      "original_name": "player_blueprint",
+      "asset_type": "Blueprint"
+    },
+    "output": {
+      "suggested_name": "BP_Player"
+    },
+    "expected": null,
+    "metrics": {
+      "naming_convention": 1.0,
+      "format_validity": 1.0,
+      "relevance": 0.95
+    },
+    "passed": true,
+    "feedback": "\u2713 naming_convention: 1.00 | \u2713 format_validity: 1.00 | \u2713 relevance: 0.95",
+    "timestamp": "2026-03-01T11:47:56.392485"
+  },
+  {
+    "feature": "asset_naming",
+    "input": {
+      "original_name": "M_Glow",
+      "asset_type": "Material"
+    },
+    "output": {
+      "suggested_name": "M_Glow"
+    },
+    "expected": null,
+    "metrics": {
+      "naming_convention": 1.0,
+      "format_validity": 1.0,
+      "relevance": 0.35
+    },
+    "passed": false,
+    "feedback": "\u2713 naming_convention: 1.00 | \u2713 format_validity: 1.00 | \u26a0 relevance: 0.35 (below threshold)",
+    "timestamp": "2026-03-01T11:47:57.858608"
+  },
+  {
+    "feature": "material_generation",
+    "input": {
+      "prompt": "shiny red metal"
+    },
+    "output": {
+      "parameters": {
+        "BaseColor": [
+          0.6,
+          0.1,
+          0.1
+        ],
+        "Metallic": 0.9,
+        "Roughness": 0.2,
+        "Specular": 0.5
+      }
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "pbr_plausibility": 1.0,
+      "relevance": 0.78
+    },
+    "passed": true,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 pbr_plausibility: 1.00 | \u2713 relevance: 0.78",
+    "timestamp": "2026-03-01T11:47:59.601089"
+  },
+  {
+    "feature": "material_generation",
+    "input": {
+      "prompt": "rough concrete"
+    },
+    "output": {
+      "parameters": {
+        "BaseColor": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.9,
+        "Specular": 0.5
+      }
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "pbr_plausibility": 1.0,
+      "relevance": 0.78
+    },
+    "passed": true,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 pbr_plausibility: 1.00 | \u2713 relevance: 0.78",
+    "timestamp": "2026-03-01T11:48:01.235095"
+  },
+  {
+    "feature": "material_generation",
+    "input": {
+      "prompt": "glossy blue plastic"
+    },
+    "output": {
+      "parameters": {
+        "BaseColor": [
+          0.1,
+          0.3,
+          0.9
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.1,
+        "Specular": 0.5
+      }
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "pbr_plausibility": 1.0,
+      "relevance": 0.92
+    },
+    "passed": true,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 pbr_plausibility: 1.00 | \u2713 relevance: 0.92",
+    "timestamp": "2026-03-01T11:48:02.874566"
+  },
+  {
+    "feature": "material_generation",
+    "input": {
+      "prompt": "rusty iron"
+    },
+    "output": {
+      "parameters": {
+        "BaseColor": [
+          0.4,
+          0.2,
+          0.1
+        ],
+        "Metallic": 0.7,
+        "Roughness": 0.7,
+        "Specular": 0.5
+      }
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "pbr_plausibility": 1.0,
+      "relevance": 0.72
+    },
+    "passed": true,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 pbr_plausibility: 1.00 | \u2713 relevance: 0.72",
+    "timestamp": "2026-03-01T11:48:05.434199"
+  },
+  {
+    "feature": "material_generation",
+    "input": {
+      "prompt": "polished gold"
+    },
+    "output": {
+      "parameters": {
+        "BaseColor": [
+          1.0,
+          0.84,
+          0.0
+        ],
+        "Metallic": 1.0,
+        "Roughness": 0.05,
+        "Specular": 0.5
+      }
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "pbr_plausibility": 1.0,
+      "relevance": 0.88
+    },
+    "passed": true,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 pbr_plausibility: 1.00 | \u2713 relevance: 0.88",
+    "timestamp": "2026-03-01T11:48:07.584846"
+  },
+  {
+    "feature": "metadata_generation",
+    "input": {
+      "name": "SM_Chair",
+      "type": "StaticMesh"
+    },
+    "output": {
+      "description": "Static mesh of a chair for furniture placement",
+      "tags": [
+        "furniture",
+        "chair",
+        "prop",
+        "StaticMesh"
+      ]
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "consistency": 1.0,
+      "relevance": 0.72
+    },
+    "passed": true,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 consistency: 1.00 | \u2713 relevance: 0.72",
+    "timestamp": "2026-03-01T11:48:09.282339"
+  },
+  {
+    "feature": "metadata_generation",
+    "input": {
+      "name": "T_Brick_D",
+      "type": "Texture2D"
+    },
+    "output": {
+      "description": "Diffuse texture for brick material",
+      "tags": [
+        "texture",
+        "brick",
+        "material",
+        "Texture2D"
+      ]
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "consistency": 1.0,
+      "relevance": 0.62
+    },
+    "passed": false,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 consistency: 1.00 | \u26a0 relevance: 0.62 (below threshold)",
+    "timestamp": "2026-03-01T11:48:10.763160"
+  },
+  {
+    "feature": "metadata_generation",
+    "input": {
+      "name": "M_Metal_Rusty",
+      "type": "Material"
+    },
+    "output": {
+      "description": "Material for rusty metal surfaces",
+      "tags": [
+        "material",
+        "metal",
+        "rusty",
+        "Material"
+      ]
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "consistency": 1.0,
+      "relevance": 0.42
+    },
+    "passed": false,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 consistency: 1.00 | \u26a0 relevance: 0.42 (below threshold)",
+    "timestamp": "2026-03-01T11:48:12.401848"
+  },
+  {
+    "feature": "metadata_generation",
+    "input": {
+      "name": "SM_Tree_Oak",
+      "type": "StaticMesh"
+    },
+    "output": {
+      "description": "Static mesh of an oak tree for environment decoration",
+      "tags": [
+        "environment",
+        "natural",
+        "vegetation",
+        "tree",
+        "StaticMesh"
+      ]
+    },
+    "expected": null,
+    "metrics": {
+      "format_validity": 1.0,
+      "consistency": 1.0,
+      "relevance": 0.72
+    },
+    "passed": true,
+    "feedback": "\u2713 format_validity: 1.00 | \u2713 consistency: 1.00 | \u2713 relevance: 0.72",
+    "timestamp": "2026-03-01T11:48:14.444403"
+  }
+]

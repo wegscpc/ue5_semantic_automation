@@ -4,15 +4,33 @@
 [![Python](https://img.shields.io/badge/Python-3.7+-green)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-## 📖 Overview
+## Overview
 
 An intelligent automation tool for Unreal Engine 5 that combines **AI-powered asset management**, **quality assurance automation**, and **procedural material generation** to dramatically reduce manual workflow time and technical debt in game development projects.
 
 This project bridges the gap between technical quality and artistic vision through intelligent automation, eliminating human error and optimizing asset pipelines.
 
-## ✨ Key Features
+## LLM Evaluation Framework
 
-### 🤖 AI-Powered Asset Organization
+**NEW!** Automated testing for AI features with functional tests and AI-judge evaluation.
+
+```bash
+# Run evaluation suite
+python tests/test_llm_evaluation.py
+```
+
+**Features:**
+- 14 automated test cases
+- Functional + AI-judge evaluation
+- Metrics tracking and reporting
+- Export results to JSON
+
+**Quick Start**: See `EVALUATION_QUICKSTART.md`  
+**Full Guide**: See `docs/EVALUATION_GUIDE.md`
+
+## Key Features
+
+### AI-Powered Asset Organization
 - **Semantic Auto-Naming**: Uses LLM integration (OpenAI/Local) to intelligently rename assets based on their class and context
 - **Smart Classification**: Automatically categorizes and organizes assets following industry-standard naming conventions (SM_, T_, M_, etc.)
 - **Metadata Generation**: AI-generated tags and descriptions for enhanced searchability in large teams
