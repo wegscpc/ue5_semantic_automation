@@ -10,23 +10,75 @@ An intelligent automation tool for Unreal Engine 5 that combines **AI-powered as
 
 This project bridges the gap between technical quality and artistic vision through intelligent automation, eliminating human error and optimizing asset pipelines.
 
-## LLM Evaluation Framework
+## 🧪 LLM Evaluation Framework
 
-**NEW!** Automated testing for AI features with functional tests and AI-judge evaluation.
+**NEW!** Custom evaluation framework for testing AI feature quality with automated metrics and AI-judge scoring.
+
+### Features
+- ✅ **14 Automated Test Cases** - Covering asset naming, material generation, and metadata
+- ✅ **Dual Evaluation Approach**:
+  - **Functional Tests**: Rule-based validation (naming conventions, value ranges, formats)
+  - **AI-Judge Evaluation**: Claude evaluates Claude's outputs for quality and relevance
+- ✅ **Metrics Tracking**: Pass/fail rates, average scores, per-feature analytics
+- ✅ **JSON Export**: Structured results for analysis and tracking over time
+- ✅ **Interactive Dashboard**: Beautiful HTML visualization with filters and charts
+
+### Quick Start
 
 ```bash
 # Run evaluation suite
 python tests/test_llm_evaluation.py
+
+# View results in browser
+start evaluation_results.html
 ```
 
-**Features:**
-- 14 automated test cases
-- Functional + AI-judge evaluation
-- Metrics tracking and reporting
-- Export results to JSON
+### What Gets Evaluated
 
-**Quick Start**: See `EVALUATION_QUICKSTART.md`  
-**Full Guide**: See `docs/EVALUATION_GUIDE.md`
+| Feature | Tests | Metrics |
+|---------|-------|---------|
+| **Asset Naming** | 5 | Naming convention, format validity, relevance |
+| **Material Generation** | 5 | Format validity, PBR plausibility, relevance |
+| **Metadata Generation** | 4 | Format validity, consistency, relevance |
+
+### Results Dashboard
+
+The framework generates an interactive HTML dashboard showing:
+- Summary statistics (total tests, pass/fail counts, pass rate)
+- Average metric scores with visual progress bars
+- Detailed test results with input/output comparison
+- Interactive filters (by status, by feature type)
+- Timestamps and historical tracking
+
+### Documentation
+- 📖 **Quick Start**: `EVALUATION_QUICKSTART.md`
+- 📚 **Full Guide**: `docs/EVALUATION_GUIDE.md`
+- 🎨 **Dashboard**: `evaluation_results.html`
+
+### Example Output
+
+```
+============================================================
+EVALUATION SUMMARY
+============================================================
+Total Tests: 14
+Passed: 9
+Failed: 5
+Pass Rate: 64.3%
+
+Average Scores:
+  naming_convention: 1.00
+  format_validity: 1.00
+  pbr_plausibility: 1.00
+  relevance: 0.70
+```
+
+**Use Cases:**
+- Quality assurance before releases
+- Prompt engineering optimization
+- Model comparison (Claude vs GPT-4)
+- Regression testing
+- Performance tracking over time
 
 ## Key Features
 
@@ -62,7 +114,7 @@ python tests/test_llm_evaluation.py
 ## 🏗️ Project Structure
 
 ```
-ue5_semantic_automation/
+ ue5_semantic_automation/
 ├── src/
 │   ├── core/                    # Core asset organization modules
 │   │   ├── asset_organizer.py   # Main organization logic
@@ -71,6 +123,10 @@ ue5_semantic_automation/
 │   │   ├── llm_client.py        # LLM provider abstraction
 │   │   ├── metadata_generator.py # AI metadata generation
 │   │   └── asset_naming.py      # AI-powered naming
+│   ├── evaluation/              # LLM evaluation framework
+│   │   ├── evaluator.py         # Core evaluation logic
+│   │   ├── datasets.py          # Test datasets
+│   │   └── __init__.py          # Module exports
 │   ├── qa/                      # Quality assurance modules
 │   │   ├── sanity_checker.py    # Comprehensive QA checks
 │   │   ├── texture_validator.py # Texture validation
@@ -91,8 +147,13 @@ ue5_semantic_automation/
 ├── docs/
 │   ├── INSTALLATION.md          # Installation guide
 │   ├── USAGE.md                 # Usage documentation
+│   ├── EVALUATION_GUIDE.md      # Evaluation framework guide
 │   └── API.md                   # API reference
-├── tests/                       # Unit tests
+├── tests/
+│   └── test_llm_evaluation.py   # LLM evaluation test runner
+├── evaluation_results.html      # Interactive results dashboard
+├── evaluation_results.json      # Evaluation results data
+├── EVALUATION_QUICKSTART.md     # Evaluation quick reference
 ├── requirements.txt             # Python dependencies
 └── README.md                    # This file
 ```
@@ -296,6 +357,8 @@ python -m pytest tests/
 - [Installation Guide](docs/INSTALLATION.md)
 - [Usage Guide](docs/USAGE.md)
 - [API Reference](docs/API.md)
+- [LLM Evaluation Guide](docs/EVALUATION_GUIDE.md) - **NEW!**
+- [Evaluation Quick Start](EVALUATION_QUICKSTART.md) - **NEW!**
 - [Contributing Guidelines](CONTRIBUTING.md)
 
 ## 🤝 Contributing
@@ -323,14 +386,24 @@ Specializing in bridging the gap between technical quality and artistic vision t
 
 ## 🗺️ Roadmap
 
+### Completed ✅
+- [x] **LLM Evaluation Framework** - Custom evaluation with functional tests and AI-judge scoring
+- [x] Interactive HTML dashboard for evaluation results
+- [x] Automated test suite for AI features
+
+### In Progress 🚧
 - [ ] Editor Utility Widget UI
 - [ ] Batch processing queue system
 - [ ] Integration with Perforce/Git
+
+### Planned 📋
 - [ ] Custom material node generation
 - [ ] Automated texture packing
 - [ ] Blueprint organization tools
 - [ ] Performance profiling integration
 - [ ] Multi-project support
+- [ ] LangSmith integration for production monitoring
+- [ ] CI/CD pipeline with automated evaluations
 
 ---
 

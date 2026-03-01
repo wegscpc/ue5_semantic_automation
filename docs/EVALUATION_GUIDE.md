@@ -47,7 +47,7 @@ tests/
 ### **Step 1: Run Evaluation Suite**
 
 ```bash
-cd d:\Windsurf_AI\ue5_semantic_automation
+cd <project_root>
 python tests/test_llm_evaluation.py
 ```
 

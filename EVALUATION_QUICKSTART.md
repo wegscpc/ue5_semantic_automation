@@ -9,7 +9,7 @@ The evaluation framework uses existing dependencies. No additional packages requ
 ### **Step 2: Run Evaluation Suite**
 
 ```bash
-cd d:\Windsurf_AI\ue5_semantic_automation
+cd <project_root>
 python tests/test_llm_evaluation.py
 ```
 

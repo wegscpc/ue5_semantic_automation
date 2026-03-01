@@ -15,7 +15,7 @@ This guide explains how to configure API keys using environment variables for se
 
 #### Windows (PowerShell)
 ```powershell
-cd d:\Windsurf_AI\ue5_semantic_automation
+cd <project_root>
 .\setup_env.ps1
 ```
 
