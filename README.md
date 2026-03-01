@@ -10,6 +10,47 @@ An intelligent automation tool for Unreal Engine 5 that combines **AI-powered as
 
 This project bridges the gap between technical quality and artistic vision through intelligent automation, eliminating human error and optimizing asset pipelines.
 
+## 🔌 UE5 Editor Plugin
+
+**NEW!** Native Unreal Engine 5 plugin with Editor Utility Widget UI.
+
+### Architecture
+- **C++ Plugin** - Native UE5 editor integration
+- **Python Bridge** - TCP server for C++ ↔ Python communication
+- **Editor Widgets** - Visual UI for all automation features
+- **Hybrid Design** - Reuses all existing Python automation code
+
+### Quick Start
+
+```bash
+# Build the plugin
+cd UE5SemanticAutomation
+python Build.py "C:\Program Files\Epic Games\UE_5.3" -TargetPlatforms=Win64
+
+# Install to UE5
+# Copy Output/UE5SemanticAutomation/ to Engine/Plugins/Marketplace/
+
+# Start Python bridge
+cd Output/UE5SemanticAutomation/Python
+python bridge_server.py
+
+# Enable in UE5: Edit → Plugins → Search "UE5 Semantic Automation"
+```
+
+### Features
+- ✅ **Toolbar Integration** - Quick access from Level Editor
+- ✅ **TCP Bridge** - Port 55557 for C++ ↔ Python communication
+- ✅ **Command Router** - 8+ automation commands available
+- ✅ **Editor Widgets** - Create custom UI in Blueprint
+- ✅ **Scripted Actions** - Right-click context menu integration
+
+### Documentation
+- 📖 **Quick Start**: `UE5SemanticAutomation/QUICKSTART.md`
+- 📚 **Setup Guide**: `UE5SemanticAutomation/PLUGIN_SETUP.md`
+- 🏗️ **Architecture**: Based on `unreal-mcp` and `Convai-UnrealEngine-SDK` patterns
+
+---
+
 ## 🧪 LLM Evaluation Framework
 
 **NEW!** Custom evaluation framework for testing AI feature quality with automated metrics and AI-judge scoring.
@@ -115,6 +156,25 @@ Average Scores:
 
 ```
  ue5_semantic_automation/
+├── UE5SemanticAutomation/       # UE5 Editor Plugin (NEW!)
+│   ├── UE5SemanticAutomation.uplugin  # Plugin descriptor
+│   ├── Source/                  # C++ plugin source
+│   │   └── UE5SemanticAutomation/
+│   │       ├── Public/
+│   │       │   ├── UE5SemanticAutomationModule.h
+│   │       │   └── PythonBridge.h
+│   │       ├── Private/
+│   │       │   ├── UE5SemanticAutomationModule.cpp
+│   │       │   └── PythonBridge.cpp
+│   │       └── UE5SemanticAutomation.Build.cs
+│   ├── Python/
+│   │   ├── bridge_server.py     # TCP bridge server
+│   │   └── requirements.txt
+│   ├── Content/UI/              # Editor Utility Widgets
+│   ├── Build.py                 # Build automation
+│   ├── QUICKSTART.md            # Quick start guide
+│   ├── PLUGIN_SETUP.md          # Detailed setup
+│   └── README.md                # Plugin documentation
 ├── src/
 │   ├── core/                    # Core asset organization modules
 │   │   ├── asset_organizer.py   # Main organization logic
@@ -387,16 +447,21 @@ Specializing in bridging the gap between technical quality and artistic vision t
 ## 🗺️ Roadmap
 
 ### Completed ✅
+- [x] **UE5 Editor Plugin** - C++ plugin with Python bridge and TCP communication
+- [x] **Plugin Build System** - Automated build and packaging
 - [x] **LLM Evaluation Framework** - Custom evaluation with functional tests and AI-judge scoring
 - [x] Interactive HTML dashboard for evaluation results
 - [x] Automated test suite for AI features
+- [x] Python bridge server for UE5 ↔ Python communication
 
 ### In Progress 🚧
-- [ ] Editor Utility Widget UI
-- [ ] Batch processing queue system
-- [ ] Integration with Perforce/Git
+- [ ] Editor Utility Widget UI development
+- [ ] Widget blueprints for each feature
+- [ ] Scripted asset actions integration
 
 ### Planned 📋
+- [ ] Batch processing queue system
+- [ ] Integration with Perforce/Git
 - [ ] Custom material node generation
 - [ ] Automated texture packing
 - [ ] Blueprint organization tools
@@ -404,6 +469,8 @@ Specializing in bridging the gap between technical quality and artistic vision t
 - [ ] Multi-project support
 - [ ] LangSmith integration for production monitoring
 - [ ] CI/CD pipeline with automated evaluations
+- [ ] Real-time material preview in widgets
+- [ ] Multi-user collaboration features
 
 ---
 

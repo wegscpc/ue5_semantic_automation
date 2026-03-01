@@ -1,0 +1,38 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0.0",
+	"FriendlyName": "UE5 Semantic Automation",
+	"Description": "AI-powered asset organization, quality assurance, and material generation for Unreal Engine 5",
+	"Category": "Editor",
+	"CreatedBy": "Walter Gomis",
+	"CreatedByURL": "https://github.com/wegscpc",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/wegscpc/ue5_semantic_automation",
+	"EngineVersion": "5.7.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "UE5SemanticAutomation",
+			"Type": "Editor",
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64",
+				"Mac",
+				"Linux"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "PythonScriptPlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "EditorScriptingUtilities",
+			"Enabled": true
+		}
+	]
+}

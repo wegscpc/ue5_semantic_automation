@@ -1,0 +1,5 @@
+# Python Bridge Server Requirements
+# These are additional to the main project requirements
+
+# No additional requirements needed - uses standard library
+# The bridge server only needs socket, json, logging which are built-in
